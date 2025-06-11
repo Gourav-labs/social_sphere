@@ -86,12 +86,12 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({
       </section>
       
       <div className="space-y-4">
-        {data.map((item: FAQItem) => {
+        {data.map((item,idx) => {
           const isOpen: boolean = openItems.has(item.id);
           
           return (
             <div 
-              key={item.id} 
+              key={item.question} 
               className="border-0 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
             >
               <button

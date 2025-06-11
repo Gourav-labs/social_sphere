@@ -50,6 +50,16 @@ export interface ServiceEntry {
     featureImg: Asset;
   };
 }
+export interface Faq{
+  sys: {
+    id: string;
+  };
+  fields: {
+   question:string,
+   answer:string,}
+
+  };
+
 
 export interface RichTextContent {
   nodeType: string; 

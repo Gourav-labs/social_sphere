@@ -43,7 +43,7 @@ export async function getPageContent(): Promise<PageContent> {
 
   try {
     const entries = await client.getEntries({ content_type: "landingPage", limit: 1 });
-    console.log(entries, "landingPage Entries");
+  
     if (entries.items.length === 0) return fallbackContent;
 
     const entry:PageContent = entries.items[0].fields;
@@ -92,6 +92,21 @@ export async function getServices(): Promise<any> {
   try {
     const entries = await client.getEntries({
       content_type: "services",
+    });
+    return entries.items;
+  } catch (error) {
+    console.error("Error fetching services", error);
+    return [];
+  }
+}
+export async function getFAQ(): Promise<any> {
+  const client = getContentfulClient();
+  if (!client) {
+    return [];
+  }
+  try {
+    const entries = await client.getEntries({
+      content_type: "question",
     });
     return entries.items;
   } catch (error) {

@@ -1,0 +1,67 @@
+{
+  "landingPage": {
+    "name": "Landing Page",
+    "description": "Main landing page content",
+    "displayField": "seoTitle",
+    "fields": [
+      {
+        "id": "seoTitle",
+        "name": "SEO Title",
+        "type": "Symbol",
+        "required": true
+      },
+      {
+        "id": "seoDescription",
+        "name": "SEO Description",
+        "type": "Text",
+        "required": true
+      },
+      {
+        "id": "seoKeywords",
+        "name": "SEO Keywords",
+        "type": "Symbol"
+      },
+      {
+        "id": "mainHeading",
+        "name": "Main Heading",
+        "type": "Symbol",
+        "required": true
+      },
+      {
+        "id": "mainSubheading",
+        "name": "Main Subheading",
+        "type": "Symbol"
+      },
+      {
+        "id": "mainBody",
+        "name": "Main Body Text",
+        "type": "Text"
+      },
+      {
+        "id": "heroImages",
+        "name": "Hero Carousel Images",
+        "type": "Array",
+        "items": {
+          "type": "Link",
+          "linkType": "Asset"
+        }
+      },
+      {
+        "id": "featuredImage",
+        "name": "Featured Section Image",
+        "type": "Link",
+        "linkType": "Asset"
+      },
+      {
+        "id": "featuredTitle",
+        "name": "Featured Section Title",
+        "type": "Symbol"
+      },
+      {
+        "id": "featuredDescription",
+        "name": "Featured Section Description",
+        "type": "Text"
+      }
+    ]
+  }
+}

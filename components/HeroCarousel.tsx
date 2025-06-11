@@ -4,15 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Asset } from "contentful";
+import { getImageUrl } from "@/lib/utils";
 
 interface HeroCarouselProps {
   slides: Asset[];
 }
-const getImageUrl = (url?: any): string => {
-  if (typeof url !== "string" || url.trim() === "") return "/placeholder.svg";
-  console.log(url.startsWith("http") ? url : `https:${url}`, "?");
-  return url.startsWith("http") ? url : `https:${url}`;
-};
+const getImageUrlLocal = getImageUrl;
 export default function HeroCarousel({ slides }: HeroCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -92,7 +89,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               }`}
             >
               <Image
-                src={getImageUrl(slide?.fields?.file?.url)}
+                src={getImageUrlLocal(slide?.fields?.file?.url)}
                 alt={
                   typeof slide?.fields?.title === "string"
                     ? slide.fields.title

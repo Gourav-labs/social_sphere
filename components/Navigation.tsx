@@ -15,11 +15,11 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-gray-900">
+            <Link href="/" className="text-2xl font-semibold text-gray-900 tracking-tight">
               InnovateTech
             </Link>
           </div>
@@ -29,7 +29,7 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                  className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium tracking-wide transition-colors duration-200"
                 >
                   {item.name}
                 </Link>
@@ -56,12 +56,12 @@ export default function Navigation() {
 
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-gray-900 block px-3 py-2 text-base font-medium"
+                className="text-gray-600 hover:text-gray-900 block px-3 py-2 text-base font-medium tracking-wide"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}

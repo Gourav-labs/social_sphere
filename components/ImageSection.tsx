@@ -1,36 +1,34 @@
 import Image from "next/image";
 import type { Asset } from "contentful";
+import { Button } from "@/components/ui/Button";
+import { getAssetUrl, getAssetTitle } from "@/lib/contentful-utils";
+import { cn, truncateText } from "@/lib/utils";
 
 interface ImageSectionProps {
   image: Asset;
   title: string;
   description: string;
+  className?: string;
+  maxDescriptionLength?: number;
+  onLearnMore?: () => void;
+  onGetStarted?: () => void;
 }
 
-const getImageUrl = (asset: Asset): string => {
-  const url = asset?.fields?.file?.url;
-  return typeof url === "string"
-    ? url.startsWith("http")
-      ? url
-      : `https:${url}`
-    : "/placeholder.svg?height=400&width=600";
-};
-
-const getAltText = (title: unknown, fallback: string): string => {
-  if (typeof title === "string") return title;
-  if (title && typeof title === "object") {
-    const values = Object.values(title as Record<string, string | undefined>);
-    return values[0] || fallback;
-  }
-  return fallback;
-};
-
-export default function ImageSection({ image, title, description }: ImageSectionProps) {
-  const imageUrl = getImageUrl(image);
-  const altText = getAltText(image?.fields?.title, title);
+export default function ImageSection({ 
+  image, 
+  title, 
+  description, 
+  className,
+  maxDescriptionLength = 200,
+  onLearnMore,
+  onGetStarted
+}: ImageSectionProps) {
+  const imageUrl = getAssetUrl(image);
+  const altText = getAssetTitle(image) || title;
+  const truncatedDescription = truncateText(description, maxDescriptionLength);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-12 items-center", className)}>
       <div className="relative h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden">
         <Image
           src={imageUrl}
@@ -38,18 +36,27 @@ export default function ImageSection({ image, title, description }: ImageSection
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
         />
       </div>
       <div className="space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h2>
-        <p className="text-lg text-gray-600 leading-relaxed">{description}</p>
+        <p className="text-lg text-gray-600 leading-relaxed">{truncatedDescription}</p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200">
+          <Button 
+            variant="primary" 
+            onClick={onLearnMore}
+            aria-label={`Learn more about ${title}`}
+          >
             Learn More
-          </button>
-          <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={onGetStarted}
+            aria-label={`Get started with ${title}`}
+          >
             Get Started
-          </button>
+          </Button>
         </div>
       </div>
     </div>

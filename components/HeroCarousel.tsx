@@ -89,7 +89,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               }`}
             >
               <Image
-                src={getImageUrlLocal(slide?.fields?.file?.url)}
+                src={getImageUrlLocal(slide?.fields?.file?.url as string)}
                 alt={
                   typeof slide?.fields?.title === "string"
                     ? slide.fields.title

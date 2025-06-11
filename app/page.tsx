@@ -1,15 +1,15 @@
-
-
-import { Suspense } from "react"
-import Navigation from "@/components/Navigation"
-import { getPageContent } from "@/lib/contentful"
+"use client"
+import { Suspense, useEffect, useState } from "react"
+import { getPageContent, getServices } from "@/lib/contentful"
 import type { Metadata } from "next"
 import HeroCarousel from "@/components/HeroCarousel"
 import TextSection from "@/components/TextSection"
 import ImageSection from "@/components/ImageSection"
 import Footer from "@/components/Footer"
 import FAQAccordion from "@/components/ui/Faqaccordion"
-
+import { PageContent } from "@/types/contentful"
+import ServiceLayout from "@/components/ServiceLayout"
+import { ServiceEntry } from "@/types/component"
 
 export interface FAQItem {
   id: number;
@@ -49,46 +49,47 @@ const sampleFAQData: FAQItem[] = [
     answer: "You can reach our customer support team through multiple channels: email us at support@company.com, call us at 1-800-123-4567 (Monday-Friday, 9 AM-6 PM EST), or use our live chat feature on the website. We typically respond to emails within 24 hours."
   }
 ];
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getPageContent()
 
-  return {
-    title: content.seoTitle,
-    description: content.seoDescription,
-    keywords: content.seoKeywords,
-}
-}
 
-export default async function Home() {
-  const content = await getPageContent()
+
+export default function Home() {
+  const [content, setContent] = useState<PageContent>();
+  const [service, setService] = useState<ServiceEntry[]>([]);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const [dataResponse, serviceResponse] = await Promise.all([getPageContent(), getServices()])
+      setContent(dataResponse);
+      setService(serviceResponse)
+    }
+    fetchContent();
+  },[])
+
+  console.log(content, service, '111');
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
-
       <main>
         <Suspense fallback={<div className="h-96 bg-gray-100 animate-pulse" />}>
-          <HeroCarousel slides={content.heroImages || []} />
+          <HeroCarousel slides={content?.heroImages || []} />
         </Suspense>
 
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">{
-            (content.mainHeading&& content.mainSubheading && content.mainBody)&&<TextSection heading={content.mainHeading} subheading={content.mainSubheading} body={content.mainBody} />}
-            
+            (content?.mainHeading && content?.mainSubheading && content.mainBody)&&<TextSection heading={content.mainHeading} subheading={content.mainSubheading} body={content.mainBody} />}
           </div>
         </section>
 
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-7xl mx-auto">
-            {(content.featuredImage && content.featuredTitle && content.featuredDescription) && <ImageSection
+            {(content?.featuredImage && content.featuredTitle && content.featuredDescription) && <ImageSection
               image={content.featuredImage}
               title={content.featuredTitle}
               description={content.featuredDescription}
-            />}
-            
+            />}            
           </div>
         </section>
-        <section>
+           <section>
         <FAQAccordion 
         data={sampleFAQData}
         title="Help Center"
@@ -98,9 +99,15 @@ export default async function Home() {
         allowMultipleOpen={false}
       />
         </section>
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            {service.map((item,idx) => (
+              <ServiceLayout key={item.sys.id} service={item} isReversed={idx%2===0} />      
+            ))}
+          </div>
+        </section>
+     
       </main>
-
-      <Footer />
     </div>
   )
 }

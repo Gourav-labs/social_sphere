@@ -55,7 +55,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({
   data,
   title = "Frequently Asked Questions",
   subtitle = "Find answers to the most common questions about our products and services. If you can't find what you're looking for, don't hesitate to contact our support team.",
-  showContactSection = true,
+  showContactSection = false,
   contactButtonText = "Contact Support",
   contactLink = "mailto:support@company.com",
   allowMultipleOpen = true,

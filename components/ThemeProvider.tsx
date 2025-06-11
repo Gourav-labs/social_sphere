@@ -1,19 +1,7 @@
 'use client';
 
+import { Theme, ThemeProviderProps, ThemeProviderState } from '@/types/component';
 import { createContext, useContext, useEffect, useState } from 'react';
-
-type Theme = 'dark' | 'light';
-
-type ThemeProviderProps = {
-  children: React.ReactNode;
-  defaultTheme?: Theme;
-  storageKey?: string;
-};
-
-type ThemeProviderState = {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-};
 
 const initialState: ThemeProviderState = {
   theme: 'light',
@@ -58,7 +46,6 @@ export function ThemeProvider({
     },
   };
 
-  // Prevent flash of wrong theme
   if (!mounted) {
     return null;
   }

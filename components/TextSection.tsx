@@ -1,11 +1,7 @@
 "use client";
+import { TextSectionProps } from "@/types/component";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import type { Document } from "@contentful/rich-text-types";
-interface TextSectionProps {
-  heading: string
-  subheading: string
-  body?: string
-}
 
 
 

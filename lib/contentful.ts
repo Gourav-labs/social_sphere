@@ -1,30 +1,7 @@
+import { PageContent } from "@/types/contentful"
 import { createClient } from "contentful"
-import type { Asset, Entry } from "contentful"
+import type { Asset } from "contentful"
 
-interface LandingPageFields {
-  seoTitle?: string
-  seoDescription?: string
-  seoKeywords?: string
-  mainHeading?: string
-  mainSubheading?: string
-  mainBody?: string
-  heroImages?: Asset[]
-  featuredImage?: Asset | null
-  featuredTitle?: string
-  featuredDescription?: string
-}
-interface PageContent {
-  seoTitle?: string
-  seoDescription?: string
-  seoKeywords?: string
-  mainHeading?: string
-  mainSubheading?: string
-  mainBody?: string
-  heroImages?: Asset[]
-  featuredImage?: Asset | null
-  featuredTitle?: string
-  featuredDescription?: string
-}
 
 const getContentfulClient = () => {
   const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
@@ -88,7 +65,6 @@ export async function getPageContent(): Promise<PageContent> {
   }
 }
 
-// Fetch hero carousel images with fallback
 export async function getHeroImages(): Promise<Asset[]> {
   const client = getContentfulClient()
 
@@ -105,5 +81,21 @@ export async function getHeroImages(): Promise<Asset[]> {
   } catch (error) {
     console.error("Error fetching hero images:", error)
     return []
+  }
+}
+
+export async function getServices(): Promise<any> {
+  const client = getContentfulClient();
+  if (!client) {
+    return [];
+  }
+  try {
+    const entries = await client.getEntries({
+      content_type: "services",
+    });
+    return entries.items;
+  } catch (error) {
+    console.error("Error fetching services", error);
+    return [];
   }
 }

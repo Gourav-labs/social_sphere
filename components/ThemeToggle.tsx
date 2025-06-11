@@ -13,7 +13,7 @@ export function ThemeToggle() {
         'fixed bottom-4 right-4 p-2 rounded-full transition-colors',
         'bg-gray-200 dark:bg-gray-800',
         'hover:bg-gray-300 dark:hover:bg-gray-700',
-        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400'
+        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400 text-white'
       )}
       aria-label="Toggle theme"
     >

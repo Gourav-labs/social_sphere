@@ -19,4 +19,16 @@ export interface HeroCarouselFields {
   order: number
 }
 
+export interface PageContent {
+  seoTitle?: string
+  seoDescription?: string
+  seoKeywords?: string
+  mainHeading?: string
+  mainSubheading?: string
+  mainBody?: string
+  heroImages?: Asset[]
+  featuredImage?: Asset | null
+  featuredTitle?: string
+  featuredDescription?: string
+}
 

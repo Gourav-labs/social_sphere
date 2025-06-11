@@ -6,7 +6,7 @@ import { cn, isEmpty } from '@/lib/utils';
 import Link from 'next/link';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'blue';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
   leftIcon?: React.ReactNode;
@@ -15,11 +15,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
 }
 
-const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
 const variants = {
   primary: 'bg-gray-900 text-white hover:bg-gray-800 focus-visible:ring-gray-900',
   secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-100',
   outline: 'border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus-visible:ring-gray-300',
+  blue: 'bg-blue-800 text-white hover:bg-blue-900 focus-visible:ring-blue-900 font-medium'
 };
 const sizes = {
   sm: 'h-8 px-3 text-sm',

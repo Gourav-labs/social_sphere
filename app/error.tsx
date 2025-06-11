@@ -33,7 +33,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             <Button
               variant="outline"
               href="/"
-              className="animate-bounce-in-delayed"
+              className="animate-bounce-in"
             >
               Go back home
             </Button>

@@ -14,17 +14,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  );
-  transition: color 0.3s ease, background 0.3s ease;
+  /* transition: color 0.3s ease, background 0.3s ease; */
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -131,6 +122,10 @@ body {
 /* Dark mode specific styles */
 .dark .bg-white {
   background-color: rgb(17, 24, 39);
+}
+
+.dark .bg-gray-50 {
+  background-color: rgb(8, 22, 51);
 }
 
 .dark .text-gray-900 {

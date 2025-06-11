@@ -4,6 +4,8 @@ import "./globals.css";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,10 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-sans`}>
+      <body className={`${poppins.variable} font-sans`} suppressHydrationWarning>
         <ThemeProvider>
           <PageTransition>
+            <Header />
+            <div className="min-h-150">
             {children}
+            </div>
+            <Footer />
           </PageTransition>
           <ThemeToggle />
         </ThemeProvider>

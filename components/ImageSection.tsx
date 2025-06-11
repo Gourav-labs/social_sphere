@@ -1,18 +1,10 @@
+"use client";
 import Image from "next/image";
 import type { Asset } from "contentful";
 import { Button } from "@/components/ui/Button";
 import { getAssetUrl, getAssetTitle } from "@/lib/contentful-utils";
 import { cn, truncateText } from "@/lib/utils";
-
-interface ImageSectionProps {
-  image: Asset;
-  title: string;
-  description: string;
-  className?: string;
-  maxDescriptionLength?: number;
-  onLearnMore?: () => void;
-  onGetStarted?: () => void;
-}
+import { ImageSectionProps } from "@/types/component";
 
 export default function ImageSection({ 
   image, 

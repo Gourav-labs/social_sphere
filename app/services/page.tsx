@@ -18,7 +18,7 @@ export default function Service() {
 
   return (
     <section className="max-w-7xl mx-auto py-16 px-4">
-      {/* <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Our Services</h1> */}
+     
 
       <div className="space-y-16">
         {services.map((service, index) => (

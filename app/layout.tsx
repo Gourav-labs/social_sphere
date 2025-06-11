@@ -27,13 +27,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans`} suppressHydrationWarning>
         <ThemeProvider>
-          <PageTransition>
             <Header />
+          <PageTransition>
             <div className="min-h-150">
             {children}
             </div>
-            <Footer />
           </PageTransition>
+            <Footer />
           <ThemeToggle />
         </ThemeProvider>
       </body>

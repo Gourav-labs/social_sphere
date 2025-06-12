@@ -24,7 +24,7 @@ const getContentfulClient = () => {
 }
 
 const fallbackContent: PageContent = {
-  seoTitle: "InnovateTech Solutions - Leading Digital Innovation",
+  seoTitle: "SocialSphere Solutions - Leading Digital Innovation",
   seoDescription:
     "Transform your business with cutting-edge technology solutions. Expert web development, AI integration, and digital transformation services.",
   seoKeywords: "web development, AI solutions, digital transformation, technology consulting",

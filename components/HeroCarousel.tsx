@@ -101,7 +101,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white px-4">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                      {`${slide.fields.title}` || "Welcome to InnovateTech"}
+                      {`${slide.fields.title}` || "Welcome to SocialSphere"}
                     </h1>
                     <p className="text-xl md:text-2xl max-w-3xl mx-auto">
                       Transforming businesses through innovative technology

@@ -148,3 +148,15 @@ body {
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+.dark .service-wrapper h3 {
+  color: aqua;
+}
+
+.dark .header-links a:hover {
+  color: aqua;
+}
+
+.dark .shadow-dark {
+  box-shadow: 0 1px 3px 0 var(--tw-shadow-color, #ffffff30), 0 1px 2px -1px var(--tw-shadow-color, #ffffff30)
+}

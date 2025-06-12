@@ -24,7 +24,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-baseline space-x-8 header-links">
               {navigationItems.map((item) => {
                 const isActive = pathname === item.href
                 return (
@@ -63,7 +63,7 @@ export default function Header() {
 
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg header-links">
             {navigationItems.map((item) => {
               const isActive = pathname === item.href
               return (

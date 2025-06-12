@@ -15,7 +15,7 @@ export default function ServiceLayout({ service, isReversed = false }: ServiceLa
 
   return (
     <div
-      className={`flex flex-col md:flex-row ${
+      className={`flex flex-col md:flex-row service-wrapper ${
         isReversed ? "md:flex-row-reverse" : ""
       } items-center gap-12`}
     >
@@ -31,8 +31,8 @@ export default function ServiceLayout({ service, isReversed = false }: ServiceLa
       </div>
 
       <div className="md:w-1/2 space-y-4">
-        <h3 className="text-xs uppercase text-blue-800  w-fit pb-3 mb-6">{subTitle}</h3>
-        <h2 className="text-4xl font-bold text-black uppercase">{title}</h2>
+        <h3 className="text-xs uppercase text-blue-800 w-fit pb-3 mb-6">{subTitle}</h3>
+        <h2 className="text-4xl font-bold text-gray-900 uppercase">{title}</h2>
         <div className="prose prose-lg text-gray-700">
           {description.content.map((paragraph, index) => (
             <p key={index}>

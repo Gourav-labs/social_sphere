@@ -17,9 +17,7 @@ export default function Service() {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto py-16 px-4">
-     
-
+    <section className="bg-white max-w-7xl mx-auto py-16 px-4">
       <div className="space-y-16">
         {services.map((service, index) => (
           <ServiceLayout key={service.sys.id} service={service} isReversed={index % 2 !== 0} />

@@ -20,7 +20,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
     },
     {
       fields: {
-        title: "Digital Transformation", 
+        title: "Digital Transformation",
         file: { url: "" },
       },
     },
@@ -47,7 +47,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setTimeout(() => setIsAutoPlaying(true), 1000);
   };
 
   const goToPrevious = () => {
@@ -73,7 +73,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   return (
-    <section className="relative h-96 md:h-[500px] lg:h-[60vh]">
+    <section className="relative h-[300px] md:h-[40vh] lg:h-[60vh]">
       <div className="relative h-full">
         {displaySlides.map((slide, index) => (
           <div
@@ -91,7 +91,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                     : `Slide ${index + 1}`
                 }
                 fill
-                className="object-contain object-top"
+                className="md:object-contain object-center xl:object-top max-md:h-[300px]"
                 priority={index === 0}
                 sizes="100vw"
               />

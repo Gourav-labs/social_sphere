@@ -92,7 +92,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({
           return (
             <div 
               key={item.question} 
-              className="border-0 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+              className="border-0 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 shadow-dark"
             >
               <button
                 onClick={() => toggleItem(item.id)}

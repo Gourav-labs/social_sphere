@@ -20,7 +20,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
     },
     {
       fields: {
-        title: "Digital Transformation",
+        title: "Digital Transformation", 
         file: { url: "" },
       },
     },

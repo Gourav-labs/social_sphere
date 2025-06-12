@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 import { Theme, ThemeProviderProps, ThemeProviderState } from '@/types/component';
 import { createContext, useContext, useEffect, useState } from 'react';
 
@@ -20,7 +19,6 @@ export function ThemeProvider({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Get the theme from localStorage after component mounts
     const storedTheme = localStorage.getItem(storageKey) as Theme;
     if (storedTheme) {
       setTheme(storedTheme);
@@ -38,10 +36,10 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
+    setTheme: (newTheme: Theme) => {
       if (mounted) {
-        localStorage.setItem(storageKey, theme);
-        setTheme(theme);
+        localStorage.setItem(storageKey, newTheme);
+        setTheme(newTheme);
       }
     },
   };

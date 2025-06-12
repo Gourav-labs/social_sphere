@@ -1,12 +1,10 @@
-"use client"
-import { Suspense, useEffect, useState } from "react"
-import { getFAQ, getPageContent, getServices } from "@/lib/contentful"
-import type { Metadata } from "next"
+import { Suspense } from "react"
 import HeroCarousel from "@/components/HeroCarousel"
 import TextSection from "@/components/TextSection"
 import ImageSection from "@/components/ImageSection"
 import Footer from "@/components/Footer"
 import FAQAccordion from "@/components/ui/Faqaccordion"
+import { getPageContent, getServices, getFAQ } from "@/lib/contentful"
 import { PageContent } from "@/types/contentful"
 import ServiceLayout from "@/components/ServiceLayout"
 import { Faq, ServiceEntry } from "@/types/component"
@@ -17,24 +15,11 @@ export interface FAQItem {
   answer: string;
 }
 
-
-export default function Home() {
-  const [content, setContent] = useState<PageContent>();
-  const [service, setService] = useState<ServiceEntry[]>([]);
-  const [sampleFAQData, setSampleFAQData] = useState<FAQItem[]>([]);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      const [dataResponse, serviceResponse, faqResponse] = await Promise.all([getPageContent(), getServices(), getFAQ()])
-      setContent(dataResponse);
-      setService(serviceResponse);
-
-
-      const val=faqResponse.map((e:Faq)=>{return {...e.fields,id:Math.random()}})
-      setSampleFAQData(val);
-    }
-    fetchContent();
-  },[])
+export default async function Home() {
+  const content: PageContent = await getPageContent();
+  const service: ServiceEntry[] = await getServices();
+  const faqResponse: Faq[] = await getFAQ();
+  const sampleFAQData: FAQItem[] = faqResponse.map((e: Faq) => ({ ...e.fields, id: Math.random() }));
 
   return (
     <div className="min-h-screen bg-white">
@@ -69,14 +54,17 @@ export default function Home() {
             allowMultipleOpen={false}
           />
         </section>
-
         <section className="py-16 px-4 bg-gray-50">
+           <div className="max-w-7xl mx-auto mb-10">
+              <TextSection heading="Our Services" />
+            </div>
           {service.map((item,idx) => (
             <div key={idx} className="max-w-7xl mx-auto mb-20">
                 <ServiceLayout key={item.sys.id} service={item} isReversed={idx%2===0} />      
             </div>
           ))}
-        </section>
+        </section> 
+      
       </main>
     </div>
   )

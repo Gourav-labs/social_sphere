@@ -2,7 +2,7 @@ import { Asset } from "contentful";
 
 export interface TextSectionProps {
   heading: string
-  subheading: string
+  subheading?: string
   body?: string
 }
 

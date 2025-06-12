@@ -4,8 +4,8 @@ import type { Asset } from "contentful"
 
 
 const getContentfulClient = () => {
-  const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID
-  const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
+  const spaceId = process.env.CONTENTFUL_SPACE_ID
+  const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN
 
   if (!spaceId || !accessToken) {
     console.warn("Contentful credentials are missing. Using fallback content.")

@@ -1,103 +1,117 @@
-import Image from "next/image";
+"use client"
+import { Suspense, useEffect, useState } from "react"
+import { getFAQ, getPageContent, getServices } from "@/lib/contentful"
+import type { Metadata } from "next"
+import HeroCarousel from "@/components/HeroCarousel"
+import TextSection from "@/components/TextSection"
+import ImageSection from "@/components/ImageSection"
+import Footer from "@/components/Footer"
+import FAQAccordion from "@/components/ui/Faqaccordion"
+import { PageContent } from "@/types/contentful"
+import ServiceLayout from "@/components/ServiceLayout"
+import { Faq, ServiceEntry } from "@/types/component"
+
+export interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+
+//   {
+//     id: 1,
+//     question: "What is your return policy?",
+//     answer: "We offer a 30-day return policy for all unused items in their original packaging. Simply contact our customer service team to initiate a return, and we'll provide you with a prepaid shipping label. Refunds are processed within 5-7 business days after we receive your return."
+//   },
+//   {
+//     id: 2,
+//     question: "How long does shipping take?",
+//     answer: "Standard shipping typically takes 3-5 business days within the continental US. Express shipping (1-2 business days) and overnight shipping options are also available at checkout. International shipping times vary by destination, usually 7-14 business days."
+//   },
+//   {
+//     id: 3,
+//     question: "Do you offer international shipping?",
+//     answer: "Yes, we ship to over 50 countries worldwide. Shipping costs and delivery times vary by destination. Please note that international customers are responsible for any customs duties, taxes, or fees imposed by their country."
+//   },
+//   {
+//     id: 4,
+//     question: "How can I track my order?",
+//     answer: "Once your order ships, you'll receive a confirmation email with a tracking number. You can use this number to track your package on our website or directly with the shipping carrier. You'll also receive updates via email as your package moves through the delivery process."
+//   },
+//   {
+//     id: 5,
+//     question: "What payment methods do you accept?",
+//     answer: "We accept all major credit cards (Visa, MasterCard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay. For large orders, we also offer payment plans through Klarna and Afterpay."
+//   },
+//   {
+//     id: 6,
+//     question: "How do I contact customer support?",
+//     answer: "You can reach our customer support team through multiple channels: email us at support@company.com, call us at 1-800-123-4567 (Monday-Friday, 9 AM-6 PM EST), or use our live chat feature on the website. We typically respond to emails within 24 hours."
+//   }
+// ];
+
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [content, setContent] = useState<PageContent>();
+  const [service, setService] = useState<ServiceEntry[]>([]);
+  const [sampleFAQData, setSampleFAQData] = useState<FAQItem[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  useEffect(() => {
+    const fetchContent = async () => {
+      const [dataResponse, serviceResponse, faqResponse] = await Promise.all([getPageContent(), getServices(), getFAQ()])
+      setContent(dataResponse);
+      setService(serviceResponse);
+
+
+      const val=faqResponse.map((e:Faq)=>{return {...e.fields,id:Math.random()}})
+      setSampleFAQData(val);
+    }
+    fetchContent();
+  },[])
+
+  return (
+    <div className="min-h-screen bg-white">
+      <main>
+        <Suspense fallback={<div className="h-96 bg-gray-100 animate-pulse" />}>
+          <HeroCarousel slides={content?.heroImages || []} />
+        </Suspense>
+
+        <section className="py-16 px-4">
+          <div className="max-w-7xl mx-auto">{
+            (content?.mainHeading && content?.mainSubheading && content.mainBody)&&<TextSection heading={content.mainHeading} subheading={content.mainSubheading} body={content.mainBody} />}
+          </div>
+        </section>
+
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            {(content?.featuredImage && content.featuredTitle && content.featuredDescription) && <ImageSection
+              image={content.featuredImage}
+              title={content.featuredTitle}
+              description={content.featuredDescription}
+            />}            
+          </div>
+        </section>
+           <section>
+        <FAQAccordion 
+        data={sampleFAQData}
+        title="Help Center"
+        subtitle="Get quick answers to common questions about our service."
+        contactButtonText="Get Help Now"
+        contactLink="https://support.example.com"
+        allowMultipleOpen={false}
+      />
+        </section>
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            {service.map((item,idx) => (
+              <ServiceLayout key={item.sys.id} service={item} isReversed={idx%2===0} />      
+            ))}
+          </div>
+        </section>
+     
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />  
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
+
